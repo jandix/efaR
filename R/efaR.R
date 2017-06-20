@@ -38,7 +38,7 @@ efaR <- function (origin,
   if (!stringr::str_detect(origin, "[a-z]{2}:[:digit:]{5}")) {
     coordinates <- ggmap::geocode(origin)
     zHV$distance <- geosphere::distHaversine(c(coordinates$lon, coordinates$lat),
-                                                    cbind(zHV$Longitude, zHV$Latitude))
+                                             cbind(zHV$Longitude, zHV$Latitude))
     zHV <- dplyr::arrange(zHV, distance)
     origin <- list(name = zHV$Name[1], dhid = zHV$DHID[1])
   } else {
@@ -74,7 +74,17 @@ efaR <- function (origin,
     }
   }
   
-  date <- format(time, "%Y%m%d")
-  time <- format(time, "%H%M")  
+  if (is(time, "POSIXt")) {
+    date <- format(time, "%Y%m%d")
+    time <- format(time, "%H%M")  
+  } else {
+    stop(
+      sprintf(
+        "Date and time are not in the correct format."
+      ),
+      call. = FALSE
+    )
+  }
+  
   
 }
