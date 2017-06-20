@@ -24,4 +24,4 @@ vignettes/*.pdf
 *.knit.md
 .Rproj.user
 # ignore local Project file
-*.Rproj
+efaR.Rproj
