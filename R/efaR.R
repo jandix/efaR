@@ -1,24 +1,28 @@
+#' Wrapper function for EFA XML API.
 #'
+#' @param origin The origin of the journey. Either a name or a DHID Code. If a name is provided the next station is calculated based on the geocode function and the 'Haversine distance'.
+#' @param destination The destination of the journey. Either a name or a DHID Code. If a name is provided the next station is calculated based on the geocode function and the 'Haversine distance'.
+#' @param date The date of the journey.
+#' @param time The time of the journey.
+#' @param simplify Simplify determines whether the original xml result is returned or a simpler S3 object.
 #'
+#' @return Either the original xml result or an S3 object based on the simplify input. 
 #'
-#'
-#'
-#'
-#'
+#' @export
 
 efaR <- function (origin,
                   destination,
-                  auto_station = TRUE,
                   date = Sys.Date(),
                   time = Sys.time(),
                   simplify = TRUE
-                  ) {
+) {
   
   if (missing(origin)) {
     stop(
       sprintf(
         "Please provide an origin."
-      )
+      ),
+      call. = FALSE
     )
   }
   
@@ -26,9 +30,42 @@ efaR <- function (origin,
     stop(
       sprintf(
         "Please provide an destination."
-      )
+      ),
+      call. = FALSE
     )
   }
+  
+  data("zHV")
+  
+  if (!stringr::str_detect(origin, "[a-z]{2}:[:digit:]{5}")) {
+    coordinates <- ggmap::geocode(origin)
+    zHV$distance <- geosphere::distHaversine(c(coordinates$lon, coordinates$lat),
+                                                    cbind(zHV$Longitude, zHV$Latitude))
+    zHV <- dplyr::arrange(zHV, distance)
+    origin <- list(name = zHV$Name[1], dhid = zHV$DHID[1])
+  } else {
+    if(any(stringr::str_detect(zHV$DHID, origin))){
+      origin <- list(name = zHV$Name[1], dhid = zHV$DHID[1])
+    } else {
+      stop(
+        sprintf(
+          "Origin DHID code is not in data set."
+        ),
+        call. = FALSE
+      )
+    }
+  }
+  
+  if (!stringr::str_detect(destination, "[a-z]{2}:[:digit:]{5}")) {
+    coordinates <- ggmap::geocode(destination)
+    data("zHV")
+    zHV$distance <- geosphere::distHaversine(c(coordinates$lon, coordinates$lat),
+                                             cbind(zHV$Longitude, zHV$Latitude))
+    zHV <- dplyr::arrange(zHV, distance)
+    origin <- list(name = zHV$Name[1], dhid = zHV$DHID[1])
+  }
+  
+  
   
   
   
