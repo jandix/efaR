@@ -25,3 +25,5 @@ vignettes/*.pdf
 .Rproj.user
 # ignore local Project file
 efaR.Rproj
+# ignore build dataset directory
+/data-raw/
