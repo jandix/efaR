@@ -4,17 +4,14 @@
 \alias{efaR}
 \title{Wrapper function for EFA XML API.}
 \usage{
-efaR(origin, destination, date = Sys.Date(), time = Sys.time(),
-  simplify = TRUE)
+efaR(origin, destination, time = Sys.time(), simplify = TRUE)
 }
 \arguments{
 \item{origin}{The origin of the journey. Either a name or a DHID Code. If a name is provided the next station is calculated based on the geocode function and the 'Haversine distance'.}
 
 \item{destination}{The destination of the journey. Either a name or a DHID Code. If a name is provided the next station is calculated based on the geocode function and the 'Haversine distance'.}
 
-\item{date}{The date of the journey.}
-
-\item{time}{The time of the journey.}
+\item{time}{The date and time of the journey.}
 
 \item{simplify}{Simplify determines whether the original xml result is returned or a simpler S3 object.}
 }
