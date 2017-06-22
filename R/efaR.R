@@ -106,8 +106,8 @@ efaR <- function (origin,
     )
   }
   
-  result <- efaR_get_xml(origin = origin$name, 
-                      destination = destination$name,
+  result <- efaR_get_xml(origin = origin$dhid, 
+                      destination = destination$dhid,
                       date = date_string,
                       time = time_string)
   
