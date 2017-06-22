@@ -28,6 +28,6 @@
 zHV
 }
 \description{
-A dataset containing all public stations in Germany.
+A dataset containing all public stations in Germany. Currently the dataset only includes stations in Baden-Württemberg, Bayern, Berlin, Brandenburg and Hessen. Accordingly to \href{http://www.delfi.de/}{Delfi} the other states will follow step by step.
 }
 \keyword{datasets}
