@@ -202,7 +202,7 @@ efaR <- function (origin,
     route <- xml2::xml_attrs(nodes[[i]])
     
     # get duration and format as minute
-    duration <- lubridate::period_to_seconds(hm(route["publicDuration"])) / 60
+    duration <- lubridate::period_to_seconds(lubridate::hm(route["publicDuration"])) / 60
     
     # get depature time
     depature <- as.POSIXct(route["cTime"], format="%Y%m%d%H%M%OS")
