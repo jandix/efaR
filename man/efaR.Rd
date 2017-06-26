@@ -21,3 +21,14 @@ Either the original xml result or an S3 object based on the simplify input.
 \description{
 Wrapper function for EFA XML API.
 }
+\examples{
+# name example
+efaR(origin = "Konstanz", destination = "Stuttgart")
+
+# coordinates example
+efaR(origin = c(9.173238, 47.67795), destination = "Stuttgart")
+
+# dhid example
+efaR(origin = "de:08335:6554", destination = "Stuttgart")
+
+}
